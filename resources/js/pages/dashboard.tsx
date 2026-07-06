@@ -1,14 +1,10 @@
 import React from 'react'
 import { createTheme, MantineProvider } from '@mantine/core';
+import Layout from '@/components/layout';
 
-const theme = createTheme({
-  
-});
 const Dashboard = () => {
-  return (
-    <MantineProvider theme={theme}>
-      
-    </MantineProvider>
+  return (  
+      <Layout/>
   )
 }
 
