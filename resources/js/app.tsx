@@ -12,7 +12,7 @@ createInertiaApp({
     },
     setup({ el, App, props }) {
     createRoot(el).render(
-      <MantineProvider>
+      <MantineProvider defaultColorScheme='dark'>
         <App {...props} />
       </MantineProvider>
     );
