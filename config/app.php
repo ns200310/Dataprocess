@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'external_api' => env('API_URL'),
+    'external_map_api' => env('MAP_API_URL'),
+
 ];
