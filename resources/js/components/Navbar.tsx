@@ -5,7 +5,7 @@ import { Link, usePage } from '@inertiajs/react';
 
 const data = [
     { icon: MdDashboard, label: 'Dashboard', description: 'Item with description', url: '/' },
-    { icon: MdDashboard, label: 'Map', description: 'Item with description', url: '/map' },
+    { icon: MdDashboard, label: 'Distelleries', description: 'Information about the distelleries', url: '/map' },
 ];
 
 const Navbar = () => {
