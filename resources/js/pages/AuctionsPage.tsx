@@ -1,6 +1,6 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { ActionIcon, Alert, Button, Flex, Group, Modal, Stack, Text, Title } from '@mantine/core'
+import { ActionIcon, Alert, Button, Divider, Flex, Group, Modal, Space, Stack, Text, Title } from '@mantine/core'
 import { BarChart } from '@mantine/charts';
 import React, { useEffect, useState } from 'react'
 import { DataTable } from 'mantine-datatable';
@@ -153,8 +153,23 @@ const AuctionsPage = ({ data }: { data: Auctions[] }) => {
         page={page}
         onPageChange={(p) => setPage(p)}
       />
+      <Space h="xl" />
 
 
+      <Divider />
+
+      <BarChart
+        h={500}
+        data={data}
+        dataKey="name"
+        series={[
+          { name: 'buyers_fee', color: 'violet.6' },
+          { name: 'listing_fee', color: 'blue.6' },
+          { name: 'sellers_fee', color: 'teal.6' },
+          { name: 'reserve_fee', color: 'teal.6' },
+        ]}
+        tickLine="y"
+      />
 
 
     </Layout>
