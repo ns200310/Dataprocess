@@ -1,13 +1,15 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { Alert, Button, Group, Modal, Stack, Text } from '@mantine/core'
+import { ActionIcon, Alert, Button, Group, Modal, Stack, Text } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { DataTable } from 'mantine-datatable';
 import { Box } from '@mantine/core';
 const PAGE_SIZE = 5;
+import { FaChevronLeft } from "react-icons/fa";
 
-const AuctionsDataPage = ({data}: { data: AuctionsData[]}) => {
+
+const AuctionsDataPage = ({ data }: { data: AuctionsData[] }) => {
 
   const [page, setPage] = useState<number>(1);
 
@@ -21,9 +23,15 @@ const AuctionsDataPage = ({data}: { data: AuctionsData[]}) => {
 
   return (
     <Layout>
-   
+      <ActionIcon
+        component="a"
+        href='/'
+        variant="filled" color="orange" aria-label="Open">
+        <FaChevronLeft style={{ width: '70%', height: '70%' }} />
+      </ActionIcon>
 
-        <DataTable
+
+      <DataTable
         withTableBorder
         borderRadius="sm"
         withColumnBorders
@@ -43,7 +51,7 @@ const AuctionsDataPage = ({data}: { data: AuctionsData[]}) => {
           { accessor: 'auction_lots_count' },
           { accessor: 'all_auctions_lots_count' },
           { accessor: 'auction_trading_volume' },
-          { accessor: 'dt' ,title: "Date" },
+          { accessor: 'dt', title: "Date" },
           { accessor: 'winning_bid_mean' },
         ]}
         totalRecords={data.length}
