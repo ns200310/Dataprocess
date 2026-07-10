@@ -1,13 +1,13 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { Alert, Button, Group, Modal, Stack, Text } from '@mantine/core'
+import { Alert, Button, Group, Modal, Stack, Text, Title } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { DataTable } from 'mantine-datatable';
 import { Box } from '@mantine/core';
 const PAGE_SIZE = 5;
 
-const AuctionsPage = ({data}: { data: AuctionsData[]}) => {
+const AuctionsPage = ({data}: { data: Auctions[]}) => {
 
   const [alert, setAlert] = useState<AlertData | null>(null)
   const [page, setPage] = useState<number>(1);
@@ -21,30 +21,11 @@ const AuctionsPage = ({data}: { data: AuctionsData[]}) => {
   }, [page]);
 
   const [modelOpened, setModelOpened] = useState<boolean>(false)
-  const refreshData = async () => { 
-    let response = await fetch('/map/refresh', {
-      method:'POST'
-    })
-
-    let data = await response.json();
-
-
-    if (data.status == 500) {
-      setAlert({
-        type: 'error',
-        message: data.message
-      });
-    }
-
-    setAlert({
-        type: 'success',
-        message: data.message
-    });
-
-  }
+  
   return (
     <Layout>
-      <Button variant="filled" size="md" onClick={refreshData}>Refresh</Button>
+      <Title order={2}>All Auctions</Title>
+
 
       <DataTable
       withTableBorder
@@ -67,8 +48,18 @@ const AuctionsPage = ({data}: { data: AuctionsData[]}) => {
         { accessor: 'listing_fee' },
         { accessor: 'sellers_fee' },
         { accessor: 'reserve_fee' },
-        { accessor: 'sellers_fee' },
-        { accessor: 'slug' },
+        { accessor: 'slug',
+
+          title: 'More',
+
+          render: ({ slug }) => (
+            <Button       
+            variant="gradient"
+            gradient={{ from: 'violet', to: 'indigo', deg: 90 }}
+            component="a" 
+            href={'/'+ slug}>More Info</Button>
+          ),
+        },
         { accessor: 'url',
           title: 'Action',
 
@@ -77,10 +68,10 @@ const AuctionsPage = ({data}: { data: AuctionsData[]}) => {
             variant="gradient"
             gradient={{ from: 'blue', to: 'pink', deg: 90 }} 
             component="a" 
+            target='_blank'
             href={url}>Visit</Button>
           ),
          },
-        // { accessor: 'bornIn' },
       ]}
       totalRecords={data.length}
       recordsPerPage={PAGE_SIZE}
