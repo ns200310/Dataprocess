@@ -8,4 +8,5 @@ Route::get('/map',[DistelleryInfoController::class, 'index'])->name('map-page');
 Route::post('/map/refresh',[DistelleryInfoController::class, 'fetchData'])->name('map-page-refresh');
 
 Route::get('/',[AuctionsController::class, 'index'])->name('auctions-page');
+Route::post('/refresh',[AuctionsController::class, 'fetchInfoData'])->name('auctions-page-refresh');
 Route::get('/{slug}', [AuctionsController::class, 'data'])->name('auctions-data-page');
