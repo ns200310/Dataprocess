@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('base_currency');
-            $table->decimal('listing_fee');
-            $table->decimal('buyers_fee');
-            $table->decimal('reserve_fee');
-            $table->decimal('sellers_fee');
-            $table->text('slug');
-            $table->text('url');
+            $table->text('name')->nullable();
+            $table->text('base_currency')->nullable();
+            $table->decimal('listing_fee')->nullable();
+            $table->decimal('buyers_fee')->nullable();
+            $table->decimal('reserve_fee')->nullable();
+            $table->decimal('sellers_fee')->nullable();
+            $table->text('slug')->nullable();
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }
