@@ -1,12 +1,11 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { ActionIcon, Alert, Button, Group, Modal, Stack, Text } from '@mantine/core'
+import { ActionIcon, Alert, Button, Divider, Group, Modal, Space, Stack, Tabs, Text, Title } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { DataTable } from 'mantine-datatable';
-import { Box } from '@mantine/core';
 const PAGE_SIZE = 5;
 import { FaChevronLeft } from "react-icons/fa";
+import { LineChart } from '@mantine/charts';
 
 
 const AuctionsDataPage = ({ data }: { data: AuctionsData[] }) => {
@@ -60,9 +59,72 @@ const AuctionsDataPage = ({ data }: { data: AuctionsData[] }) => {
         onPageChange={(p) => setPage(p)}
       />
 
+      <Space h="xl" />
+
+
+      <Divider />
 
 
 
+
+      <Tabs defaultValue="auction_lots_count">
+        <Tabs.List>
+          <Tabs.Tab value="auction_lots_count">
+            Auction lots count
+          </Tabs.Tab>
+          <Tabs.Tab value="atv" >
+            Auction Trading Volume
+          </Tabs.Tab>
+          <Tabs.Tab value="winning_bid_mean">
+            Winning bid mean
+          </Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="auction_lots_count">
+          <Space h="md" />
+
+          <LineChart
+            h={300}
+            data={data}
+            dataKey="dt"
+            series={[
+
+              { name: 'all_auctions_lots_count', color: 'orange.6' },
+              { name: 'auction_lots_count', color: 'blue.6' },
+            ]}
+            curveType="natural"
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="atv">
+          <Space h="md" />
+
+          <LineChart
+            h={300}
+            data={data}
+            dataKey="dt"
+            series={[
+              { name: 'auction_trading_volume', color: 'yellow.6' },
+            ]}
+            curveType="natural"
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="winning_bid_mean">
+          <Space h="md" />
+
+          <LineChart
+            h={300}
+            data={data}
+            dataKey="dt"
+            series={[
+
+              { name: 'winning_bid_mean', color: 'teal.6' },
+            ]}
+            curveType="natural"
+          />
+        </Tabs.Panel>
+      </Tabs>
     </Layout>
   )
 }
