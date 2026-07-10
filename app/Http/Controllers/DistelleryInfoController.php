@@ -22,7 +22,16 @@ class DistelleryInfoController extends Controller
             ->whereNotNull('longitude')
             ->get();
 
-        return Inertia::render('MapPage', ['data' => $data]);
+       $chartData = Distillery::selectRaw('country, count(*) as dis')
+                    ->whereNotNull('country')
+                    ->groupBy('country')
+                    ->orderBy('dis', 'desc')
+                    ->get();
+
+        return Inertia::render('MapPage', [
+            'data' => $data,
+            'chartData' => $chartData
+        ]);
     }
 
     public function fetchData() : JsonResponse {
