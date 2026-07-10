@@ -4,7 +4,7 @@ import { MdDashboard } from "react-icons/md";
 import { Link, usePage } from '@inertiajs/react';
 
 const data = [
-    { icon: MdDashboard, label: 'Dashboard', description: 'Item with description', url: '/' },
+    { icon: MdDashboard, label: 'Auctions', description: 'Information about different auctions', url: '/' },
     { icon: MdDashboard, label: 'Distelleries', description: 'Information about the distelleries', url: '/map' },
 ];
 
