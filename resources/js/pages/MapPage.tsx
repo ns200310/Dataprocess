@@ -1,8 +1,9 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { Alert, Button, Group, Modal, Stack, Text } from '@mantine/core'
+import { ActionIcon, Alert, Button, Flex, Group, Modal, Stack, Text, Title } from '@mantine/core'
 import React, { useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MdRefresh } from "react-icons/md";
 
 
 const MapPage = ({data}: { data: MapData[]}) => {
@@ -33,7 +34,19 @@ const MapPage = ({data}: { data: MapData[]}) => {
   }
   return (
     <Layout>
-      <Button variant="filled" size="md" onClick={refreshData}>Refresh</Button>
+      <Flex
+        gap="md"
+        justify="flex-end"
+        align="center"
+        direction="row"
+        wrap="wrap"
+      >
+        <ActionIcon variant="filled" color="green" aria-label="Refresh" onClick={()=>setModelOpened(true)}>
+          <MdRefresh style={{ width: '70%', height: '70%' }} />
+        </ActionIcon>
+
+      </Flex>
+
 
       {alert && (
           <Alert
@@ -53,6 +66,7 @@ const MapPage = ({data}: { data: MapData[]}) => {
         onClose={() => setModelOpened(false)}
         title="Confirm Data Refresh"
         centered
+        zIndex={200}
       >
         <Stack gap="md">
           <Text size="sm">
@@ -68,6 +82,8 @@ const MapPage = ({data}: { data: MapData[]}) => {
           </Group>
         </Stack>
       </Modal>
+
+      <Title order={2}>Distelleries</Title>
       <MapContainer
         center={[51.505, -0.09]}
         zoom={2}
