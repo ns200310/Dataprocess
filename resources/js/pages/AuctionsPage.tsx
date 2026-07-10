@@ -1,13 +1,14 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { Alert, Button, Group, Modal, Stack, Text, Title } from '@mantine/core'
+import { ActionIcon, Button, Title } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { DataTable } from 'mantine-datatable';
+import { MdArrowOutward } from "react-icons/md";
+
 import { Box } from '@mantine/core';
 const PAGE_SIZE = 5;
 
-const AuctionsPage = ({data}: { data: Auctions[]}) => {
+const AuctionsPage = ({ data }: { data: Auctions[] }) => {
 
   const [alert, setAlert] = useState<AlertData | null>(null)
   const [page, setPage] = useState<number>(1);
@@ -21,63 +22,68 @@ const AuctionsPage = ({data}: { data: Auctions[]}) => {
   }, [page]);
 
   const [modelOpened, setModelOpened] = useState<boolean>(false)
-  
+
   return (
     <Layout>
       <Title order={2}>All Auctions</Title>
 
 
       <DataTable
-      withTableBorder
-      borderRadius="sm"
-      withColumnBorders
-      striped
-      highlightOnHover
-      // provide data
-      records={records}
-      // define columns
-      columns={[
-        {
-          accessor: 'name',
-          // this column has a custom title
-          title: 'Name',
-          // right-align column
-          textAlign: 'right',
-        },
-        { accessor: 'buyers_fee' },
-        { accessor: 'listing_fee' },
-        { accessor: 'sellers_fee' },
-        { accessor: 'reserve_fee' },
-        { accessor: 'slug',
+        withTableBorder
+        borderRadius="sm"
+        withColumnBorders
+        striped
+        highlightOnHover
+        // provide data
+        records={records}
+        // define columns
+        columns={[
+          {
+            accessor: 'name',
+            // this column has a custom title
+            title: 'Name',
+            // right-align column
+            textAlign: 'right',
+          },
+          { accessor: 'buyers_fee' },
+          { accessor: 'listing_fee' },
+          { accessor: 'sellers_fee' },
+          { accessor: 'reserve_fee' },
+          { accessor: 'base_currency', title: 'Currency' },
+          {
+            accessor: 'slug',
 
-          title: 'More',
+            title: 'More',
 
-          render: ({ slug }) => (
-            <Button       
-            variant="gradient"
-            gradient={{ from: 'violet', to: 'indigo', deg: 90 }}
-            component="a" 
-            href={'/'+ slug}>More Info</Button>
-          ),
-        },
-        { accessor: 'url',
-          title: 'Action',
+            render: ({ slug }) => (
+              <Button
+                variant="gradient"
+                gradient={{ from: 'violet', to: 'indigo', deg: 90 }}
+                component="a"
+                href={'/' + slug}>More</Button>
+            ),
+          },
+          {
+            accessor: 'url',
+            title: 'Action',
 
-          render: ({ url }) => (
-            <Button       
-            variant="gradient"
-            gradient={{ from: 'blue', to: 'pink', deg: 90 }} 
-            component="a" 
-            target='_blank'
-            href={url}>Visit</Button>
-          ),
-         },
-      ]}
-      totalRecords={data.length}
-      recordsPerPage={PAGE_SIZE}
-      page={page}
-      onPageChange={(p) => setPage(p)}
-    />
+            render: ({ url }) => (
+
+              <ActionIcon
+                component="a"
+                target='_blank'
+                href={url}
+                variant="filled" color="green" aria-label="Open">
+                <MdArrowOutward style={{ width: '70%', height: '70%' }} />
+              </ActionIcon>
+            ),
+          },
+        ]}
+        totalRecords={data.length}
+        recordsPerPage={PAGE_SIZE}
+        page={page}
+        onPageChange={(p) => setPage(p)}
+      />
 
 
 
