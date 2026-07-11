@@ -55,7 +55,7 @@ const MapPage = ({ data, chartData }: { data: MapData[], chartData: [] }) => {
         onClose={() => setModelOpened(false)}
         title="Confirm Data Refresh"
         centered
-        zIndex={200}
+        zIndex={2000}
       >
         <Stack gap="md">
           <Text size="sm">
