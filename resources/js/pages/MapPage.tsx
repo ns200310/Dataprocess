@@ -1,6 +1,6 @@
 import Layout from '@/components/layout'
 import Pin from '@/components/Pin'
-import { ActionIcon, Alert, Button, Divider, Flex, Group, Modal, Paper, Stack, Text, Title } from '@mantine/core'
+import { ActionIcon, Alert, Button, Divider, Flex, Group, Modal, Paper, Space, Stack, Tabs, Text, Title } from '@mantine/core'
 import React, { useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { MdRefresh } from "react-icons/md";
@@ -86,51 +86,69 @@ const MapPage = ({ data, chartData }: { data: MapData[], chartData: [] }) => {
 
 
       <Title order={2}>Distelleries</Title>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={2}
-        style={{ height: '500px', width: '100%' }}
-      >
-        <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {
-          data && data.map((iterateData: iterateData, index: number) => {
-            return <Pin key={index} message={iterateData.display_name} lat={iterateData.latitude} long={iterateData.longitude} />
-          })
-        }
-      </MapContainer>
-      <Divider my="md" />
-      <Title order={2}>Bar Chart</Title>
-      <Paper shadow="md" p="xl">
 
 
-        <BarChart
-          h={200}
-          data={chartData}
-          type="waterfall"
-          dataKey="country"
-          series={[
-            { name: 'dis' },
-          ]}
-          tickLine="y"
-        />
-      </Paper>
-      <Divider my="md" />
+      <Tabs defaultValue="mapv" keepMounted={false}>
+        <Tabs.List>
+          <Tabs.Tab value="mapv">
+            Map view
+          </Tabs.Tab>
+          <Tabs.Tab value="bar" >
+            Bar view
+          </Tabs.Tab>
+          <Tabs.Tab value="radar">
+            Radar View
+          </Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="mapv">
+          <Space h="md" />
+
+          <MapContainer
+            center={[51.505, -0.09]}
+            zoom={2}
+            style={{ height: '500px', width: '100%' }}
+          >
+            <TileLayer
+              attribution='&copy; OpenStreetMap contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {
+              data && data.map((iterateData: iterateData, index: number) => {
+                return <Pin key={index} message={iterateData.display_name} lat={iterateData.latitude} long={iterateData.longitude} />
+              })
+            }
+          </MapContainer>
 
 
+        </Tabs.Panel>
 
-      <Paper shadow="md" p="xl">
-        <Title order={2}>Radar Chart</Title>
-        <RadarChart
-          h={300}
-          data={chartData}
-          dataKey="country"
-          withPolarRadiusAxis
-          series={[{ name: 'dis', color: 'orange.4', opacity: 0.2 }]}
-        />
-      </Paper>
+        <Tabs.Panel value="bar">
+          <Space h="md" />
+          <BarChart
+            h={200}
+            data={chartData}
+            type="waterfall"
+            dataKey="country"
+            series={[
+              { name: 'dis' },
+            ]}
+            tickLine="y"
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="radar">
+          <Space h="md" />
+          <RadarChart
+            h={300}
+            data={chartData}
+            dataKey="country"
+            withPolarRadiusAxis
+            series={[{ name: 'dis', color: 'orange.4', opacity: 0.2 }]}
+          />
+
+        </Tabs.Panel>
+      </Tabs>
     </Layout>
   )
 }
